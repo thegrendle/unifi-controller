@@ -1,10 +1,12 @@
 # unifi-controller
-Containerized Ubiquiti Networks Unifi Controller Version 7.3.83
+Containerized Ubiquiti Networks Unifi Controller.
 
 To build the containerized Unifi Controller:
 
   $ git clone git@github.com:thegrendle/unifi-controller.git
+
   $ cd unifi-controller.git
+
   $ podman build -t unifi-controller:<version> .
 
 To run the containerized Unifi Controller:
