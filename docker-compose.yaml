@@ -1,0 +1,20 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  unifi-controller:
+    build: .
+    networks: ["net"]
+    restart: "on-failure"
+    ports:
+      - "6789:6789"
+      - "8080:8080"
+      - "8443:8443"
+      - "8843:8843"
+      - "8880:8880"
+      - "1900:1900"
+      - "3478:3478"
+      - "5353:5353"
+      - "10001:10001"
+    volumes:
+      - logvolume01:/var/log
+volumes:
+  logvolume01: {}

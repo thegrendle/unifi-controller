@@ -4,8 +4,9 @@ ARG UNIFI_VERSION=7.3.83
 FROM --platform=${PLATFORM} ubuntu:18.04 AS builder
 ARG UNIFI_VERSION
 
-ADD https://dl.ui.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb /tmp
-#COPY files/unifi_sysvinit_all.deb /tmp
+#ADD https://dl.ui.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb /tmp
+COPY files/e2e7-debian-7.4.162-03ed77823cbb477490a0d9cceb477689.deb /tmp
+COPY files/unifi_sysvinit_all.deb /tmp
 COPY files/entrypoint.sh /usr/bin
 
 USER root
@@ -21,9 +22,9 @@ RUN useradd appuser -c "Application User" && \
         curl \
         mongodb \
         mongodb-server && \
-    dpkg --install /tmp/unifi_sysvinit_all.deb && \
+    dpkg --install /tmp/e2e7-debian-7.4.162-03ed77823cbb477490a0d9cceb477689.deb && \
     apt -f install && \
-    rm -Rf /tmp/unifi_sysvinit_all.deb
+    rm -Rf /tmp/e2e7-debian-7.4.162-03ed77823cbb477490a0d9cceb477689.deb
 
 VOLUME /var/log/unifi /var/lib/unifi
 
