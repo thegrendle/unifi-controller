@@ -1,30 +1,33 @@
 ARG PLATFORM=amd64
-ARG UNIFI_VERSION=7.3.83
+ARG UNIFI_VERSION=8.2.93
+ARG INSTALLER_FILE=ca97-debian-8.2.93-d03274d8-7021-4b69-9233-5b521691b501.deb
 
 FROM --platform=${PLATFORM} ubuntu:18.04 AS builder
 ARG UNIFI_VERSION
+ARG INSTALLER_FILE
 
 #ADD https://dl.ui.com/unifi/${UNIFI_VERSION}/unifi_sysvinit_all.deb /tmp
-COPY files/e2e7-debian-7.4.162-03ed77823cbb477490a0d9cceb477689.deb /tmp
-COPY files/unifi_sysvinit_all.deb /tmp
+#COPY files/e2e7-debian-7.4.162-03ed77823cbb477490a0d9cceb477689.deb /tmp
+#COPY files/unifi_sysvinit_all.deb /tmp
+COPY files/${INSTALLER_FILE} /tmp
 COPY files/entrypoint.sh /usr/bin
 
 USER root
 
 RUN useradd appuser -c "Application User" && \
     apt update && \
-    apt upgrade && \
+    apt upgrade -y && \
     apt install -y \
-        openjdk-11-jdk-headless \
+        openjdk-17-jdk-headless \
         libcap2 \
         binutils \
         logrotate \
         curl \
         mongodb \
         mongodb-server && \
-    dpkg --install /tmp/e2e7-debian-7.4.162-03ed77823cbb477490a0d9cceb477689.deb && \
+    dpkg --install /tmp/${INSTALLER_FILE} && \
     apt -f install && \
-    rm -Rf /tmp/e2e7-debian-7.4.162-03ed77823cbb477490a0d9cceb477689.deb
+    rm -Rf /tmp/${INSTALLER_FILE}
 
 VOLUME /var/log/unifi /var/lib/unifi
 

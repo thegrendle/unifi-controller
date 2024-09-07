@@ -23,7 +23,7 @@ To run the containerized Unifi Controller:
         -p 3478:3478/udp \
         -p 5353:5353/udp \
         -p 10001:10001/udp \
-        unifi-controller:7.3.83-latest
+        unifi-controller:8.2.93-1
 
   2. If you are running a distro with firewalld, you can use the
      unifi.xml file.
